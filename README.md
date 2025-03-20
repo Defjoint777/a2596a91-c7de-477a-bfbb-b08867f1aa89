@@ -2,50 +2,117 @@
 {
   "depends_on": [],
   "author": "Stephan Bökelmann",
-  "first_used": "2025-03-17",
-  "keywords": ["learning", "exercises", "education", "practice"]
+  "first_used": "2025-03-20",
+  "keywords": ["learning", "exercises", "education", "practice", "C", "printf"]
 }
 --->
 
-# Learning Through Exercises
+# printf for constant Strings
 
 ## 1) Introduction
-Learning by doing is one of the most effective methods to acquire new knowledge and skills. Rather than passively consuming information, actively engaging in problem-solving fosters deeper understanding and long-term retention. By working through structured exercises, students can grasp complex concepts in a more intuitive and applicable way. This approach is particularly beneficial in technical fields like programming, mathematics, and engineering.
+`printf` is a C function, that gives us access to the ability to write a **string** to the **standard output** (stdout) of the environment in which our program is executed.
+The stdout usually being the terminal from which the program was launched.
+
+The `printf` function is part of C's standard library.
+It's definition is located in the `stdio.h` file. 
+This stands for `Standard Input and Output`.
+Looking at the language manual for C, gives us some information on how this function can be used. 
+Let's look at one of many ways to use it:
+```C
+int printf( const char* restrict format, ... );
+```
+This look might scare a beginner in the first moment, so let's unpack it a little bit.
+First, let's talk about the return-type. 
+In a language reference, the return-type is usually written in front of the functions synopsis, in this case: `int`.
+A way to think about this is that, when the computer is done evaluating the function, it promises to return an integer. 
+Another way could be that, when the function has run, the value of `printf( ..... )` becomes an `int`.
+In the parenthesis, the parameters that the function call awaits are displayed. 
+The function `printf` seems to take two parameters, separated by a comma. 
+The first one being called `format` with additional type-information in front of it. 
+While the second one is `...`. 
+This `...` is also called an __ellispis__ and can be a placeholder for an undefined number of arguments, also called a __variadic amount__ in programming. 
+That undefined number may also be zero, so let's go with that for a moment, leaving us only with the first parameter.
+Reading a little bit further in the documentation gives us the following information about the `format` variable-identifier:
+```
+format - pointer to a null-terminated byte string specifying how to interpret the data
+```
+If you haven't heard about pointers yet, don't worry. 
+You can imagine them as an address-number within your RAM (from here on forth just **address**), where the first character of a multi character word or sentence is stored.
+The next higher address is the next character. 
+An ending of a word, sentence or just series of characters is indicated by a byte in RAM, which is completely set to zero (in binary: 0b 0000 0000).
+A sequence of characters that fulfil this pattern is also called a __C-style-string__(-of-characters) or short: **String**.
+
+There are a couple of other `printf` like functions in the `stdio.h` library. 
+They will get interesting later.
 
 ### 1.1) Further Readings and Other Sources
-- [The Importance of Practice in Learning](https://www.sciencedirect.com/science/article/pii/S036013151300062X)
-- "The Art of Learning" by Josh Waitzkin
-- [How to Learn Effectively: 5 Key Strategies](https://www.edutopia.org/article/5-research-backed-learning-strategies)
+- [printf on cppreference.com](https://en.cppreference.com/w/c/io/fprintf)
 
 ## 2) Tasks
-1. **Write a Summary**: Summarize the concept of "learning by doing" in 3-5 sentences.
-2. **Example Identification**: List three examples from your own experience where learning through exercises helped you understand a topic better.
-3. **Create an Exercise**: Design a simple exercise for a topic of your choice that someone else could use to practice.
-4. **Follow an Exercise**: Find an online tutorial that includes exercises and complete at least two of them.
-5. **Modify an Existing Exercise**: Take a basic problem from a textbook or online course and modify it to make it slightly more challenging.
-6. **Pair Learning**: Explain a concept to a partner and guide them through an exercise without giving direct answers.
-7. **Review Mistakes**: Look at an exercise you've previously completed incorrectly. Identify why the mistake happened and how to prevent it in the future.
-8. **Time Challenge**: Set a timer for 10 minutes and try to solve as many simple exercises as possible on a given topic.
-9. **Self-Assessment**: Create a checklist to evaluate your own performance in completing exercises effectively.
-10. **Reflect on Progress**: Write a short paragraph on how this structured approach to exercises has influenced your learning.
+1. **Write a simple program with printf**: To use `printf` you will have to first include the library and then call the function. This might look something like this:
+```C
+#include<stdio.h>
 
-<details>
-  <summary>Tip for Task 5</summary>
-  Try making small adjustments first, such as increasing the difficulty slightly or adding an extra constraint.
-</details>
+int main(){
+    printf("Hello World");
+    return 0;
+}
+```
+Write this into a plain textfile and save it to your hard-drive. 
+It's filename should end in `.c` - e.g. `my_new_program.c`.
+This file is also called `source-code`.
+Make sure, to set the semicolons correctly, otherwise your program will not work as intended.
+2. **Installing the compiler**: In order for the program to be executable by our platform (computer), it needs to be translated into a format, that the platform can read.
+This is done by the compiler. 
+Try running `gcc --version` from your terminal. 
+`gcc` is one of the most commonly used compilers today. 
+If `gcc` isn't already installed, google for the installation-instructions for your platform - Windows, Linux, or MacOS.
+3. **Run the compiler**: The installed compiler is a program as every other program as well. In order to run it, you need to type its name into the command-line on your terminal and pass it the path to the data it shall work with. In our case that is `my_new_program.c`. 
+Assuming you are in the same directory where your source-code is located, you can now run the compiler by typing:
+```shell
+gcc my_new_program.c
+```
+If your file is located in a different directory, you can either choose to navigate into the directory using the `cd` command, or just use the fully-qualified-path, or __absolute path__:
+```shell
+gcc /home/user/directory/where/my/source/is/located/my_new_program.c
+```
+If the compiler doesn't give you any messages, your compilation ran smoothly and nothing went wrong. 
+If something is wrong with your source-code or your installation, the compiler will issue `diagnostic-messages` to the terminal. 
+Read them carefully and try to understand them. 
+The compiler is your friend and just wants to help you with these messages. 
+After reading them carefully, make sure, that your source-file looks as described in task 1.
+4. **Searching the final program**: Assuming the compiler didn't issue any diagnostics, your ready to run program is now located in the exact directory you ran `gcc` from.
+Use the `ls` command if you are working on a Mac or Linux shell, or `dir` if you are working on a DOS/Windows shell.
+A new file should have been created called `a.out`. 
+This is your executable program.
+5. **Modifying the programs name**: `a.out` isn't really a good name for an executable. Therefore `gcc` gives us the opportunity to rename our final program easily.
+Run `gcc` again, now in the following way:
+```shell
+gcc <path to your program.c> -o Executable_Program
+```
+The additional parameter is indicated by `-o`. 
+This is the path, that our executable file will be stored at. 
+Run `ls` or `dir` again, to see the file.
+6. **Running the program**: In order to execute the program, type:
+```shell
+./Executable_Program
+```
+If you are running a linux or mac shell, or:
+```dos
+.\Executable_Program.exe
+```
+If you are running a windows/DOS shell.
+Your output shall be printed to the terminal.
 
 ## 3) Questions
-1. What are the main benefits of learning through exercises compared to passive learning?
-2. How do exercises improve long-term retention?
-3. Can you think of a subject where learning through exercises might be less effective? Why?
-4. What role does feedback play in learning through exercises?
-5. How can self-designed exercises improve understanding?
-6. Why is it beneficial to review past mistakes in exercises?
-7. How does explaining a concept to someone else reinforce your own understanding?
-8. What strategies can you use to stay motivated when practicing with exercises?
-9. How can timed challenges contribute to learning efficiency?
-10. How do exercises help bridge the gap between theory and practical application?
+
+1. What does `printf` do, and why is it useful in a C program?
+2. Why do we need to include `stdio.h` when using `printf`?
+3. What is the difference between `printf("Hello World")` and `printf("Hello World\n")`?
+4. How can you change the output filename when compiling a C program using `gcc`?
 
 ## 4) Advice
-Practice consistently and seek out diverse exercises that challenge different aspects of a topic. Combine exercises with reflection and feedback to maximize your learning efficiency. Don't hesitate to adapt exercises to fit your own needs and ensure that you're actively engaging with the material, rather than just going through the motions.
+
+Make sure to always check for compiler diagnostic messages when writing C programs. They often contain useful hints. Additionally, experiment with modifying the `printf` statement—try adding `\n` or `\t` to your string and see what happens. Hands-on practice will solidify your understanding!
+
 
