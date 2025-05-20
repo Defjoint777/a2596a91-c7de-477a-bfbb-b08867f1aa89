@@ -48,7 +48,7 @@ They will get interesting later.
 
 ### 1.1) Further Readings and Other Sources
 - [printf on cppreference.com](https://en.cppreference.com/w/c/io/fprintf)
-
+touch 
 ## 2) Tasks
 1. **Write a simple program with printf**: To use `printf` you will have to first include the library and then call the function. This might look something like this:
 ```C
@@ -108,10 +108,14 @@ Your output shall be printed to the terminal.
 ## 3) Questions
 
 1. What does `printf` do, and why is it useful in a C program?
-2. Why do we need to include `stdio.h` when using `printf`?
-3. What is the difference between `printf("Hello World")` and `printf("Hello World\n")`?
-4. How can you change the output filename when compiling a C program using `gcc`?
-
+   printf is able to take string and send it to stdio.h (our console), over printf we are able to communicate with the system
+3. Why do we need to include `stdio.h` when using `printf`?
+   we need stdio.h because its standart library for Input-Output
+   
+5. What is the difference between `printf("Hello World")` and `printf("Hello World\n")`?
+   \n means newlane
+7. How can you change the output filename when compiling a C program using `gcc`?
+  gcc myfilename.c -o mynewprogrammname
 ## 4) Advice
 
 Make sure to always check for compiler diagnostic messages when writing C programs. They often contain useful hints. Additionally, experiment with modifying the `printf` statement—try adding `\n` or `\t` to your string and see what happens. Hands-on practice will solidify your understanding!
